@@ -8,8 +8,11 @@ mkdir -p dist/img
 # CV as a PDF
 tmp_html="$(pwd)/.cv-build.html"
 trap 'rm -f "$tmp_html"' EXIT
-pandoc src/cv.md -t html5 -o "$tmp_html" --standalone --css=src/cv.css
-sed -i '' '/div\.columns{display: flex; gap:/d; /div\.column{flex: auto; overflow-x:/d' "$tmp_html"
+pandoc src/cv.md -t html5 -o "$tmp_html" --standalone --css=src/cv.css \
+  --metadata pagetitle="Joseph Coleman, CV"
+# strip pandoc's pandoc-only column styles (weasyprint warns on them). -i.bak works on both BSD and GNU sed.
+sed -i.bak '/div\.columns{display: flex; gap:/d; /div\.column{flex: auto; overflow-x:/d' "$tmp_html"
+rm -f "$tmp_html.bak"
 weasyprint "$tmp_html" dist/cv.pdf
 echo "Built dist/cv.pdf"
 
