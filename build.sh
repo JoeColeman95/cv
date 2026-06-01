@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")"
+rm -rf dist
+mkdir -p dist/img
+
+# CV as a PDF
+tmp_html="$(pwd)/.cv-build.html"
+trap 'rm -f "$tmp_html"' EXIT
+pandoc src/cv.md -t html5 -o "$tmp_html" --standalone --css=src/cv.css
+sed -i '' '/div\.columns{display: flex; gap:/d; /div\.column{flex: auto; overflow-x:/d' "$tmp_html"
+weasyprint "$tmp_html" dist/cv.pdf
+echo "Built dist/cv.pdf"
+
+# CV as a HTML page
+pandoc src/cv.md -t html5 -o dist/cv-sheet.html \
+  --standalone --embed-resources --css=src/cv.css \
+  --metadata pagetitle="Joseph Coleman, CV"
+echo "Built dist/cv-sheet.html"
+
+# Website dist
+cp src/site/site.css    dist/site.css
+cp src/site/site.js     dist/site.js
+cp src/site/github.js   dist/github.js
+cp src/site/index.html  dist/index.html
+cp src/site/cv.html     dist/cv.html
+cp src/site/github.html dist/github.html
+cp src/site/img/*.png   dist/img/
+echo "Built homepage, cv.html, github.html + assets + cutouts"
