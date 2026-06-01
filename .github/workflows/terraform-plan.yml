@@ -1,0 +1,72 @@
+name: terraform plan
+
+on:
+  pull_request:
+    paths:
+      - "infra/**"
+      - "bootstrap/**"
+      - "mise.toml"
+      - ".github/workflows/terraform-*.yml"
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: terraform-plan-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: jdx/mise-action@v2
+
+      - uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/cv-github-terraform
+          aws-region: eu-west-2
+
+      - run: terraform init -input=false
+      - run: terraform fmt -recursive -check
+      - run: terraform validate
+
+      - id: plan
+        run: terraform plan -no-color -input=false -out=tfplan
+        continue-on-error: true
+
+      - name: Post plan as PR comment
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          script: |
+            const plan = `${{ steps.plan.outputs.stdout }}`;
+            const fmt = plan.length > 60000 ? plan.slice(0, 60000) + '\n...(truncated)' : plan;
+            const body = [
+              '### Terraform Plan',
+              '',
+              '<details><summary>Show plan</summary>',
+              '',
+              '```hcl',
+              fmt,
+              '```',
+              '',
+              '</details>',
+              '',
+              `*Outcome: \`${{ steps.plan.outcome }}\`*`
+            ].join('\n');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });
+
+      - if: steps.plan.outcome == 'failure'
+        run: exit 1

@@ -23,6 +23,11 @@ output "github_deploy_role_arn" {
   description = "ARN the deploy workflow assumes via OIDC."
 }
 
+output "github_terraform_role_arn" {
+  value       = aws_iam_role.github_terraform.arn
+  description = "ARN the terraform plan/apply workflows assume via OIDC."
+}
+
 output "billing_alarm_name" {
   value       = aws_cloudwatch_metric_alarm.monthly_spend.alarm_name
   description = "Billing tripwire alarm name."

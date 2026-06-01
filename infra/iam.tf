@@ -67,3 +67,118 @@ resource "aws_iam_role_policy" "github_deploy" {
   role   = aws_iam_role.github_deploy.id
   policy = data.aws_iam_policy_document.github_deploy.json
 }
+
+# Terraform CI role. Trusted by PRs (plan) and pushes to main (apply).
+# Apply is gated by a GitHub Environment with required reviewers, not by IAM.
+data "aws_iam_policy_document" "github_terraform_trust" {
+  statement {
+    effect  = "Allow"
+    actions = ["sts:AssumeRoleWithWebIdentity"]
+
+    principals {
+      type        = "Federated"
+      identifiers = [aws_iam_openid_connect_provider.github.arn]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:aud"
+      values   = ["sts.amazonaws.com"]
+    }
+
+    condition {
+      test     = "StringLike"
+      variable = "token.actions.githubusercontent.com:sub"
+      values = [
+        "repo:${var.github_repo}:pull_request",
+        "repo:${var.github_repo}:ref:refs/heads/${var.github_deploy_branch}",
+      ]
+    }
+  }
+}
+
+resource "aws_iam_role" "github_terraform" {
+  name               = "cv-github-terraform"
+  description        = "Assumed by GH Actions for terraform plan (PR) and apply (main, gated)."
+  assume_role_policy = data.aws_iam_policy_document.github_terraform_trust.json
+}
+
+# Service-specific access for everything the module manages. No AdministratorAccess.
+data "aws_iam_policy_document" "github_terraform" {
+  statement {
+    sid       = "S3"
+    effect    = "Allow"
+    actions   = ["s3:*"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid       = "CloudFront"
+    effect    = "Allow"
+    actions   = ["cloudfront:*"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid       = "ACM"
+    effect    = "Allow"
+    actions   = ["acm:*"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid       = "Route53"
+    effect    = "Allow"
+    actions   = ["route53:*"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "IAM"
+    effect = "Allow"
+    actions = [
+      "iam:GetOpenIDConnectProvider",
+      "iam:CreateOpenIDConnectProvider",
+      "iam:DeleteOpenIDConnectProvider",
+      "iam:UpdateOpenIDConnectProviderThumbprint",
+      "iam:AddClientIDToOpenIDConnectProvider",
+      "iam:RemoveClientIDFromOpenIDConnectProvider",
+      "iam:TagOpenIDConnectProvider",
+      "iam:UntagOpenIDConnectProvider",
+      "iam:GetRole",
+      "iam:CreateRole",
+      "iam:DeleteRole",
+      "iam:UpdateRole",
+      "iam:UpdateAssumeRolePolicy",
+      "iam:GetRolePolicy",
+      "iam:PutRolePolicy",
+      "iam:DeleteRolePolicy",
+      "iam:ListRolePolicies",
+      "iam:ListAttachedRolePolicies",
+      "iam:TagRole",
+      "iam:UntagRole",
+      "iam:ListInstanceProfilesForRole",
+    ]
+    resources = ["*"]
+  }
+
+  statement {
+    sid       = "CloudWatchAndSNS"
+    effect    = "Allow"
+    actions   = ["cloudwatch:*", "sns:*"]
+    resources = ["*"]
+  }
+
+  statement {
+    sid       = "STS"
+    effect    = "Allow"
+    actions   = ["sts:GetCallerIdentity"]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_role_policy" "github_terraform" {
+  name   = "cv-github-terraform"
+  role   = aws_iam_role.github_terraform.id
+  policy = data.aws_iam_policy_document.github_terraform.json
+}

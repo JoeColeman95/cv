@@ -62,11 +62,15 @@ mise run validate     # fmt -check + validate on both modules
 
 ## CI/CD
 
-Push to `main` → GitHub Actions assumes an OIDC-federated IAM role (no long-lived AWS keys), runs `build.sh`, syncs `dist/` into S3 with tiered cache-control, then invalidates the relevant CloudFront paths.
+Three workflows, all OIDC-federated to AWS (no long-lived keys anywhere):
 
-The role can do `s3:PutObject` / `s3:DeleteObject` / `s3:GetObject` on the site bucket, `s3:ListBucket` on the same bucket, and `cloudfront:CreateInvalidation` on this distribution. Nothing else. The trust policy is scoped to `repo:JoeColeman95/cv:ref:refs/heads/main`, so nothing in any other repo or branch can assume it.
+**Content deploy** (`deploy.yml`). On push to `main` touching `src/` or `build.sh`: assume the `cv-github-deploy` role, run `build.sh`, sync `dist/` into S3 with tiered cache-control, invalidate the relevant CloudFront paths. The role can do `s3:PutObject` / `s3:DeleteObject` / `s3:GetObject` / `s3:ListBucket` on the site bucket and `cloudfront:CreateInvalidation` on this distribution. Nothing else.
 
-Terraform itself is currently applied from a laptop. Adding plan-on-PR / apply-on-main with a second OIDC role is a one-evening job that's been deliberately deferred.
+**Terraform plan** (`terraform-plan.yml`). On PR touching `infra/`, `bootstrap/`, `mise.toml` or the terraform workflows: assume the `cv-github-terraform` role, run `terraform init` + `fmt -check` + `validate` + `plan`, post the plan as a collapsible PR comment.
+
+**Terraform apply** (`terraform-apply.yml`). On push to `main` touching `infra/`: gated on the `production` GitHub Environment (requires manual approval from a configured reviewer), then runs `terraform apply` with the same role.
+
+The `cv-github-terraform` role gets service-scoped permissions (`s3:*`, `cloudfront:*`, `acm:*`, `route53:*`, plus the specific IAM actions the module needs), deliberately not `AdministratorAccess`. The trust policy on both roles is scoped to `repo:JoeColeman95/cv:*`, so nothing in any other repo can assume them.
 
 ## Costs
 
