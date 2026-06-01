@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Joseph Coleman, GitHub Activity</title>
+  <meta name="description" content="Joseph Coleman's public GitHub activity across Buildkite's repositories, pulled live from the GitHub API.">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <header class="site-nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html">Joseph <span>Coleman</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links">
+        <li><a class="nav-link" href="index.html#about">About</a></li>
+        <li><a class="nav-link" href="index.html#experience">Experience</a></li>
+        <li><a class="nav-link" href="index.html#highlights">Highlights</a></li>
+        <li><a class="nav-link" href="index.html#skills">Skills</a></li>
+        <li><a class="nav-link" href="index.html#contact">Contact</a></li>
+        <li><a class="nav-link is-page current" href="github.html">GitHub</a></li>
+        <li><a class="nav-link is-page" href="cv.html">CV</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="kicker">GitHub activity</p>
+      <h1>Open-source work at Buildkite</h1>
+      <p>Pulled live from the public GitHub API at page load: my public contribution cadence across the buildkite organisation, recent activity, and merged pull requests by repository. Nothing on this page is typed in by hand.</p>
+      <p class="gh-profile" id="gh-profile"></p>
+      <div class="gh-live" id="gh-live">
+        <span class="gh-live-dot" aria-hidden="true"></span>
+        <span id="gh-live-text">Live from the GitHub API</span>
+        <button type="button" class="gh-refresh" id="gh-refresh">Refresh</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 22px;">
+    <div class="container">
+      <div class="stats-grid" id="gh-stats"></div>
+      <p class="note" id="gh-stats-note"></p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <p class="kicker">Recent</p>
+      <h2>Latest public activity</h2>
+      <ul class="gh-feed" id="gh-feed"></ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="kicker">Breadth</p>
+      <h2>Merged pull requests by repository</h2>
+      <div class="bars" id="gh-bars"></div>
+      <p class="note" id="gh-bars-note"></p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <p class="kicker">Traction</p>
+      <h2>Terraform module adoption</h2>
+      <p style="max-width:680px;color:#36444c;">My from-scratch Terraform port of the Elastic CI Stack went to public preview in November 2025 and is now run in production by around 60 organisations, with more adopting it every month.</p>
+      <p class="note"><a href="https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws">View the module on GitHub</a></p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container"><a href="https://github.com/JoeColeman95">github.com/JoeColeman95</a> &middot; <a href="https://github.com/JoeColeman95/cv">Source for this site</a> &middot; Built with Terraform on AWS S3 + CloudFront, deployed by GitHub Actions via OIDC.</div>
+  </footer>
+
+  <script src="site.js"></script>
+  <script src="github.js"></script>
+</body>
+</html>

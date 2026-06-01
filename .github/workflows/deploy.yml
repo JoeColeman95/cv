@@ -1,0 +1,58 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "build.sh"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc weasyprint
+
+      - name: Build site
+        run: bash build.sh
+
+      - name: Assume AWS role via OIDC
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/cv-github-deploy
+          aws-region: eu-west-2
+
+      - name: Sync dist/ to S3
+        run: |
+          aws s3 sync dist/ s3://${{ vars.SITE_BUCKET }} \
+            --delete \
+            --cache-control "public, max-age=300, must-revalidate" \
+            --exclude "*.pdf" \
+            --exclude "img/*"
+          aws s3 sync dist/img/ s3://${{ vars.SITE_BUCKET }}/img/ \
+            --delete \
+            --cache-control "public, max-age=86400, immutable"
+          aws s3 cp dist/cv.pdf s3://${{ vars.SITE_BUCKET }}/cv.pdf \
+            --cache-control "public, max-age=3600"
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/" "/index.html" "/cv.html" "/github.html" "/cv.pdf"

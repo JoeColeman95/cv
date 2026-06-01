@@ -1,0 +1,200 @@
+/* ============================================================
+   Joseph Coleman, CV + site stylesheet.
+   One source for screen (GitHub Pages) and print (A4 PDF via weasyprint).
+   Screen-only flourishes live under @media screen so the PDF is never affected.
+   Accent is a single variable: change --accent to re-theme everything.
+   ============================================================ */
+
+:root {
+  --accent: #0f766e;        /* deep teal */
+  --accent-deep: #0b5750;
+  --accent-tint: #e6f0ef;   /* code chips, soft fills */
+  --ink: #1b2227;           /* primary text */
+  --muted: #5d6b73;         /* dates, labels, contact line */
+  --rule: #dde3e5;          /* hairlines */
+  --paper: #ffffff;
+  --bg: #eceff1;            /* screen backdrop */
+}
+
+@page {
+  size: A4;
+  margin: 16mm 18mm;
+}
+
+html {
+  font-family: -apple-system, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 10.2pt;
+  line-height: 1.3;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+body { margin: 0; }
+
+/* ---- Masthead ---------------------------------------------- */
+h1 {
+  font-size: 25pt;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-align: center;
+  margin: 0 0 0.06em 0;
+  color: var(--ink);
+}
+
+/* subtitle is the first h2 directly after h1 */
+h1 + h2 {
+  text-align: center;
+  font-size: 10.5pt;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--accent);
+  border: none;
+  padding: 0;
+  margin: 0 0 0.7em 0;
+}
+
+/* contact line is the p directly after the subtitle */
+h1 + h2 + p {
+  text-align: center;
+  color: var(--muted);
+  font-size: 9.4pt;
+  margin: 0 0 0.1em 0;
+}
+h1 + h2 + p a { color: var(--muted); text-decoration: none; }
+
+/* ---- Section headers --------------------------------------- */
+h2 {
+  font-size: 10.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  border-bottom: 1.5px solid var(--rule);
+  padding-bottom: 3pt;
+  margin: 1.15em 0 0.55em 0;
+}
+
+/* ---- Experience entries ------------------------------------ */
+h3 {
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0.75em 0 0 0;
+}
+
+/* role + dates line (p right after a company h3) */
+h3 + p {
+  color: var(--muted);
+  font-size: 9.6pt;
+  margin: 0.04em 0 0.32em 0;
+}
+h3 + p strong { color: var(--accent-deep); font-weight: 600; }
+
+/* ---- Body copy --------------------------------------------- */
+p { margin: 0.32em 0; }
+
+ul {
+  margin: 0.26em 0 0.5em 0;
+  padding-left: 1.05em;
+  list-style: none;
+}
+li {
+  position: relative;
+  margin-bottom: 0.22em;
+  padding-left: 0.4em;
+}
+li::before {
+  content: "";
+  position: absolute;
+  left: -0.5em;
+  top: 0.52em;
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+strong { color: var(--ink); font-weight: 600; }
+
+hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 0.7em 0 0.2em 0;
+}
+
+/* ---- Code chips (repo / tool names) ------------------------ */
+code {
+  font-family: "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.83em;
+  background: var(--accent-tint);
+  padding: 0.06em 0.36em;
+  border-radius: 3px;
+  color: var(--accent-deep);
+  white-space: nowrap;
+}
+
+/* ---- Links ------------------------------------------------- */
+a {
+  color: var(--accent-deep);
+  text-decoration: underline;
+  text-decoration-color: rgba(15, 118, 110, 0.35);
+  text-decoration-thickness: 0.6px;
+  text-underline-offset: 2px;
+}
+a:has(> code) { text-decoration: none; }
+a > code { color: var(--accent-deep); }
+
+/* ---- Contact icons (inline SVG, slate-toned) --------------- */
+[class^="ico-"]::before {
+  content: "";
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  vertical-align: -0.16em;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  margin-right: 0.28em;
+}
+.ico-pin::before {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235d6b73' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 10c0 7-8 12-8 12s-8-5-8-12a8 8 0 0 1 16 0Z'/><circle cx='12' cy='10' r='3'/></svg>");
+}
+.ico-mail::before {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235d6b73' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect width='20' height='16' x='2' y='4' rx='2'/><path d='m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7'/></svg>");
+}
+.ico-phone::before {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235d6b73' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'/></svg>");
+}
+.ico-linkedin::before {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235d6b73'><path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/></svg>");
+}
+.ico-github::before {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235d6b73'><path d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/></svg>");
+}
+.ico-globe::before {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235d6b73' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20'/><path d='M2 12h20'/></svg>");
+}
+
+/* ============================================================
+   SCREEN ONLY: present the CV as an A4 sheet on a soft backdrop.
+   weasyprint renders print media, so none of this reaches the PDF.
+   ============================================================ */
+@media screen {
+  html {
+    background: var(--bg);
+    padding: 30px 16px;
+  }
+  body {
+    box-sizing: border-box;
+    max-width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 16mm 18mm;
+    background: var(--paper);
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 14px 38px rgba(20, 40, 50, 0.13);
+  }
+}
+
+/* Keep this file weasyprint-safe: no @media feature queries (e.g. max-width). */
