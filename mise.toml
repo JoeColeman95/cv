@@ -1,0 +1,50 @@
+[tools]
+terraform = "1.15.5"
+
+# Tasks set for convenience of throwing up infra in two distinct steps
+
+[tasks.bootstrap]
+description = "This should only be ran once initially to create the S3 bucket that hosts Terraform state."
+dir = "bootstrap"
+run = [
+  "terraform init -input=false",
+  "terraform apply",
+]
+
+[tasks.plan]
+description = "Plan changes to the site infrastructure."
+dir = "infra"
+run = [
+  "terraform init -input=false",
+  "terraform plan",
+]
+
+[tasks.apply]
+description = "Apply the planned changes to the site infrastructure."
+dir = "infra"
+run = [
+  "terraform init -input=false",
+  "terraform apply",
+]
+
+[tasks.fmt]
+description = "Format every .tf file in the repo."
+run = "terraform fmt -recursive"
+
+[tasks.validate]
+description = "Lint + validate both Terraform modules without touching state."
+run = [
+  "(cd bootstrap && terraform init -backend=false -input=false && terraform validate)",
+  "(cd infra && terraform init -backend=false -input=false && terraform validate)",
+  "terraform fmt -recursive -check",
+]
+
+[tasks.nameservers]
+description = "Print the four NS values to paste at your DNS provider for j.oseph.co.uk."
+dir = "infra"
+run = "terraform output nameservers"
+
+[tasks.outputs]
+description = "Print all Terraform outputs (NS, distribution ID, bucket name, role ARN)."
+dir = "infra"
+run = "terraform output"
