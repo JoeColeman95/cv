@@ -44,4 +44,11 @@ cp src/site/index.html  dist/index.html
 cp src/site/cv.html     dist/cv.html
 cp src/site/github.html dist/github.html
 cp src/site/img/*.png   dist/img/
+cp src/site/favicon.ico                dist/favicon.ico
+cp src/site/favicon-16x16.png          dist/favicon-16x16.png
+cp src/site/favicon-32x32.png          dist/favicon-32x32.png
+cp src/site/apple-touch-icon.png       dist/apple-touch-icon.png
+cp src/site/android-chrome-192x192.png dist/android-chrome-192x192.png
+cp src/site/android-chrome-512x512.png dist/android-chrome-512x512.png
+cp src/site/site.webmanifest           dist/site.webmanifest
 echo "Built homepage, cv.html, github.html + assets + cutouts"
