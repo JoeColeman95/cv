@@ -3,7 +3,7 @@
 ## DevOps & Platform Engineer
 
 <span class="ico-pin"></span>Bromborough, UK &nbsp; <span class="ico-mail"></span>[j@oseph.co.uk](mailto:j@oseph.co.uk) &nbsp; <span class="ico-phone"></span>07477 119471\
-<span class="ico-globe"></span>[j.oseph.co.uk](https://j.oseph.co.uk) &nbsp; <span class="ico-linkedin"></span>[linkedin.com/in/j-oseph](https://www.linkedin.com/in/joseph-coleman-devops/) &nbsp; <span class="ico-github"></span>[github.com/JoeColeman95](https://github.com/JoeColeman95)
+<span class="ico-globe"></span>[j.oseph.co.uk](https://j.oseph.co.uk) &nbsp; <span class="ico-linkedin"></span>[linkedin.com/in/j-oseph](https://www.linkedin.com/in/j-oseph/) &nbsp; <span class="ico-github"></span>[github.com/JoeColeman95](https://github.com/JoeColeman95)
 
 ---
 
