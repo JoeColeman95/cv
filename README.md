@@ -83,6 +83,7 @@ Help yourself. If you're building your own CV or personal site, anything in this
 - The Terraform in `infra/` is a clean reference for **S3 + CloudFront + ACM + Route 53 with the modern OAC**, plus **GitHub Actions OIDC** and a **billing alarm**. Drop your own values into `terraform.tfvars` and it should work.
 - The site in `src/site/` is plain HTML/CSS/JS. No framework, no build step.
 - The CV is `cv.md`, rendered by `build.sh`.
+- Cover letters use the same toolchain. Drop a `<company>.md` into `src/cover-letters/` and `bash build.sh` produces `dist/cover-letter-<company>.pdf` with the matching masthead. `src/cover-letters/example.md` is a committed template showing the structure; everything else under that directory is gitignored because cover letters are per-application and tend to contain things you don't want public.
 
 In return: a ⭐ or a fork is the only thank-you I'm asking for. No attribution required, no email, no fuss. PRs welcome if you fix something or improve a pattern.
 

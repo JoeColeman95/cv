@@ -1,0 +1,27 @@
+/* Letter-specific overrides applied on top of cv.css.
+   Keeps masthead, code chips, accent colours and icons identical to the CV.
+   Loosens line-height and paragraph spacing so the body reads as a letter, not a CV. */
+
+@page {
+  size: A4;
+  margin: 18mm 22mm;
+}
+
+html {
+  font-size: 10.5pt;
+  line-height: 1.45;
+}
+
+p {
+  margin: 0 0 0.7em 0;
+}
+
+/* breathing room after the masthead before the date */
+hr {
+  margin: 1.2em 0 1.3em 0;
+}
+
+/* date sits between hr and greeting. Push the greeting + body further down so the date reads as its own block. */
+hr + p {
+  margin-bottom: 1.6em;
+}

@@ -31,3 +31,8 @@ dist/
 .claude/
 AGENTS.md
 CLAUDE.md
+
+# Cover letters: per-application, sensitive (recipient names, tailored claims).
+# example.md is the only file kept in the repo as a template.
+src/cover-letters/*
+!src/cover-letters/example.md

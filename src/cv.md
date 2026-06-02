@@ -1,6 +1,6 @@
 # Joseph Coleman
 
-## DevOps & Platform Engineer
+## DevOps Engineer & Platform Engineer
 
 <span class="ico-pin"></span>Bromborough, UK &nbsp; <span class="ico-mail"></span>[j@oseph.co.uk](mailto:j@oseph.co.uk) &nbsp; <span class="ico-phone"></span>07477 119471\
 <span class="ico-globe"></span>[j.oseph.co.uk](https://j.oseph.co.uk) &nbsp; <span class="ico-linkedin"></span>[linkedin.com/in/j-oseph](https://www.linkedin.com/in/j-oseph/) &nbsp; <span class="ico-github"></span>[github.com/JoeColeman95](https://github.com/JoeColeman95)
@@ -9,7 +9,7 @@
 
 ## Professional Summary
 
-DevOps and Platform Engineer with 4+ years building cloud platforms as code. Currently at Buildkite engaging directly with leading AI and tech customers and shipping Go across the public CLI, Go SDK and a new Terraform Elastic CI Stack module. Looking for a senior DevOps or platform engineering role with broader ownership of developer experience and reliability.
+DevOps Engineer and Platform Engineer with 4+ years building cloud platforms as code. Currently at Buildkite engaging directly with leading AI and tech customers and shipping Go across the public CLI, Go SDK and a new Terraform Elastic CI Stack module. Looking for a senior role as a DevOps Engineer or Platform Engineer with broader ownership of developer experience and reliability.
 
 ## Experience
 
@@ -17,11 +17,11 @@ DevOps and Platform Engineer with 4+ years building cloud platforms as code. Cur
 **DevOps Support Engineer** | June 2025 – Present
 
 - Resolve 10+ customer escalations a month, unblocking developers at Buildkite's leading AI and tech customers across CI/CD pipelines, Kubernetes deployments via [`agent-stack-k8s`](https://github.com/buildkite/agent-stack-k8s), monitoring and platform incidents.
-- Authored the public [`terraform-buildkite-elastic-ci-stack-for-aws`](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws) module, a from-scratch Terraform port of the CloudFormation Elastic CI Stack (33 AWS resources, 14 `.tf` files), replacing CFN custom resources with `aws_lambda_invocation` and extracting repeated expressions into reusable locals. Released to public preview in November 2025 and adopted in production by around 60 organisations, with ongoing ownership through docs, examples, custom IAM roles, Renovate and tagging.
-- Drove the [Buildkite CLI](https://github.com/buildkite/cli)'s migration from Cobra/Viper to Kong across every command group (build, agent, job, cluster, artifacts), and stripped legacy TUI dependencies (BubbleTea, Lipgloss) in favour of plain ANSI output, trimming the binary by ~5 MB and yielding a more responsive CLI with cleaner output for scripts and AI agents to consume. Added cluster-queue commands, `bk job list/cancel`, agent pause/resume, and richer build filtering, keeping the Go SDK ([`go-buildkite`](https://github.com/buildkite/go-buildkite)) in lockstep with new service methods.
-- Hardened public actions and hooks: added retry with exponential backoff and jitter to [`trigger-pipeline-action`](https://github.com/buildkite/trigger-pipeline-action) for 5xx/429/network errors, and switched on automatic secret redaction in [`elastic-ci-stack-s3-secrets-hooks`](https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks) so pipeline secrets are scrubbed before logs leave the agent.
-- Building OAuth (alongside existing PAT auth) in the [Buildkite VS Code extension](https://github.com/buildkite/vscode-buildkite), a TypeScript refactor of auth, caching and logging into a dependency-injection pattern with token redaction across error paths.
-- Opened ~100 pull requests (92 merged) across 18 Buildkite repositories, plus 135+ commits to the public documentation, all in under a year.
+- Authored the public [`terraform-buildkite-elastic-ci-stack-for-aws`](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws) module, a from-scratch Terraform port of the CloudFormation Elastic CI Stack at 33 AWS resources across 14 `.tf` files, replacing CFN custom resources with `aws_lambda_invocation` and extracting repeated expressions into reusable locals. Released to public preview in November 2025 and adopted in production by around 60 organisations, with ongoing ownership through docs, examples, custom IAM roles, Renovate and tagging.
+- Drove the [Buildkite CLI](https://github.com/buildkite/cli)'s migration from Cobra/Viper to Kong across every command group, including build, agent, job, cluster and artifacts. Stripped legacy TUI dependencies BubbleTea and Lipgloss in favour of plain ANSI output, trimming the binary by ~5 MB and yielding a more responsive CLI with cleaner output for scripts and AI agents to consume. Added cluster-queue commands, `bk job list/cancel`, agent pause/resume, and richer build filtering, keeping the Go SDK [`go-buildkite`](https://github.com/buildkite/go-buildkite) in lockstep with new service methods.
+- Hardened public actions and hooks by adding retry with exponential backoff and jitter to [`trigger-pipeline-action`](https://github.com/buildkite/trigger-pipeline-action) for 5xx/429/network errors, and switching on automatic secret redaction in [`elastic-ci-stack-s3-secrets-hooks`](https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks) so pipeline secrets are scrubbed before logs leave the agent.
+- Building OAuth alongside the existing PAT auth in the [Buildkite VS Code extension](https://github.com/buildkite/vscode-buildkite), a TypeScript refactor of auth, caching and logging into a dependency-injection pattern with token redaction across error paths.
+- Opened ~100 pull requests across 18 Buildkite repositories with 92 merged, plus 135+ commits to the public documentation, all in under a year.
 
 ### Redcloud Technologies Ltd
 **DevOps Engineer** | March 2022 – June 2025

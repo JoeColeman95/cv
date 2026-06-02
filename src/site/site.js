@@ -1,5 +1,12 @@
-// Site behaviour: mobile menu toggle + scrollspy for the sticky nav.
+// Site behaviour: external links in new tabs + mobile menu toggle + scrollspy for the sticky nav.
 (function () {
+  // External links open in a new tab. Same-origin (or anchor-only) links stay in place.
+  Array.prototype.forEach.call(document.querySelectorAll('a[href^="http"]'), function (a) {
+    if (!a.hostname || a.hostname === location.hostname) return;
+    a.target = '_blank';
+    a.rel = (a.rel ? a.rel + ' ' : '') + 'noopener noreferrer';
+  });
+
   var nav = document.querySelector('.site-nav');
   var toggle = document.querySelector('.nav-toggle');
   var links = Array.prototype.slice.call(document.querySelectorAll('.nav-link[data-section]'));
@@ -49,7 +56,7 @@
     'At Buildkite, I build cloud platforms as code, keep CI/CD reliable, and help engineering teams ship without friction.',
     'I build and maintain cloud platforms as code at Buildkite, keeping CI/CD reliable across the public CLI, the Go SDK, and a new Terraform Elastic CI Stack module.',
     'I build cloud platforms as code and keep CI/CD reliable. Currently at Buildkite, where I unblock engineers at leading AI and tech companies and ship across the public CLI, the Go SDK, and a Terraform Elastic CI Stack module that teams run in production.',
-    'I make CI/CD fast and reliable for teams that cannot afford downtime. I build platforms as code, author public Terraform and CLI tooling, and I have the receipts: monitoring that cut incident response by forty percent, and ISO 27001 passed with zero findings.',
+    'I make CI/CD fast and reliable for teams that cannot afford downtime. I build platforms as code, author public Terraform and CLI tooling, and I have the receipts. Monitoring that cut incident response by forty percent. ISO 27001 passed with zero findings.',
     'Here is the actual pitch. I shipped a Terraform module that around sixty organisations now run in production. I have wrangled Terraform across twenty-five AWS accounts and eighty-five VPCs, run Kafka on MSK, and walked an estate through ISO 27001 with no findings. I do this every day, and I would happily do it for your team.',
     'Let me be blunt. Your pipelines are probably red right now and your on-call is probably awake. I am the engineer who makes them boringly green and suspiciously quiet, the one who cut incident response by forty percent and shipped a Terraform module around sixty organisations rely on. Your current shortlist is, statistically, less reliable than my uptime.',
     'Right, you dragged it all the way, so here is the shameless version: hire me. Your pipelines go boringly green, your pager goes quiet, and your incidents close before anyone opens a thread about them. Around sixty organisations run the Terraform module I shipped, twenty-five AWS accounts have run on infrastructure I wrote, and ISO 27001 auditors left empty-handed. WARNING: prolonged exposure may cause five nines and an alarming amount of reclaimed weekend.'

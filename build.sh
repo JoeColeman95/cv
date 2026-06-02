@@ -16,11 +16,25 @@ rm -f "$tmp_html.bak"
 weasyprint "$tmp_html" dist/cv.pdf
 echo "Built dist/cv.pdf"
 
-# CV as a HTML page
+# CV as a HTML page. Iframed by cv.html, so every link opens in a new tab via the <base> in src/cv-sheet-header.html.
 pandoc src/cv.md -t html5 -o dist/cv-sheet.html \
   --standalone --embed-resources --css=src/cv.css \
-  --metadata pagetitle="Joseph Coleman, CV"
+  --metadata pagetitle="Joseph Coleman, CV" \
+  --include-in-header=src/cv-sheet-header.html
 echo "Built dist/cv-sheet.html"
+
+# Cover letters: one PDF per src/cover-letters/*.md, same toolchain as the CV
+for letter in src/cover-letters/*.md; do
+  [ -f "$letter" ] || continue
+  name="$(basename "$letter" .md)"
+  pandoc "$letter" -t html5 -o "$tmp_html" --standalone \
+    --css=src/cv.css --css=src/letter.css \
+    --metadata pagetitle="Joseph Coleman, Cover Letter ($name)"
+  sed -i.bak '/div\.columns{display: flex; gap:/d; /div\.column{flex: auto; overflow-x:/d' "$tmp_html"
+  rm -f "$tmp_html.bak"
+  weasyprint "$tmp_html" "dist/cover-letter-${name}.pdf"
+  echo "Built dist/cover-letter-${name}.pdf"
+done
 
 # Website dist
 cp src/site/site.css    dist/site.css
