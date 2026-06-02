@@ -3,13 +3,13 @@
 ## DevOps & Platform Engineer
 
 <span class="ico-pin"></span>Bromborough, UK &nbsp; <span class="ico-mail"></span>[j@oseph.co.uk](mailto:j@oseph.co.uk) &nbsp; <span class="ico-phone"></span>07477 119471\
-<span class="ico-globe"></span>[j.oseph.co.uk](https://j.oseph.co.uk) &nbsp; <span class="ico-linkedin"></span>[linkedin.com/in/joseph-coleman-devops](https://www.linkedin.com/in/joseph-coleman-devops/) &nbsp; <span class="ico-github"></span>[github.com/JoeColeman95](https://github.com/JoeColeman95)
+<span class="ico-globe"></span>[j.oseph.co.uk](https://j.oseph.co.uk) &nbsp; <span class="ico-linkedin"></span>[linkedin.com/in/j-oseph](https://www.linkedin.com/in/joseph-coleman-devops/) &nbsp; <span class="ico-github"></span>[github.com/JoeColeman95](https://github.com/JoeColeman95)
 
 ---
 
 ## Professional Summary
 
-DevOps and platform engineer with 4+ years building cloud platforms as code. Currently at Buildkite engaging directly with leading AI and tech customers and shipping Go across the public CLI, Go SDK and a new Terraform Elastic CI Stack module. Looking for a senior DevOps or platform engineering role with broader ownership of developer experience and reliability.
+DevOps and Platform Engineer with 4+ years building cloud platforms as code. Currently at Buildkite engaging directly with leading AI and tech customers and shipping Go across the public CLI, Go SDK and a new Terraform Elastic CI Stack module. Looking for a senior DevOps or platform engineering role with broader ownership of developer experience and reliability.
 
 ## Experience
 
