@@ -9,33 +9,33 @@
 
 ## Professional Summary
 
-DevOps Engineer and Platform Engineer with 4+ years building cloud platforms as code. Currently at Buildkite engaging directly with leading AI and tech customers and shipping Go across the public CLI, Go SDK and a new Terraform Elastic CI Stack module. Looking for a senior role as a DevOps Engineer or Platform Engineer with broader ownership of developer experience and reliability.
+DevOps Engineer and Platform Engineer with 4+ years building cloud platforms as code. Authored a public Terraform module now run in production by around 60 organisations, drove the Buildkite CLI's Cobra-to-Kong migration shaving ~5 MB off the binary, and previously built an AWS observability stack that cut incident response by 40%. Looking for a senior role as a DevOps Engineer or Platform Engineer with broader ownership of developer experience and reliability.
 
 ## Experience
 
 ### Buildkite
 **DevOps Support Engineer** | June 2025 – Present
 
-- Resolve 10+ customer escalations a month, unblocking developers at Buildkite's leading AI and tech customers across CI/CD pipelines, Kubernetes deployments via [`agent-stack-k8s`](https://github.com/buildkite/agent-stack-k8s), monitoring and platform incidents.
 - Authored the public [`terraform-buildkite-elastic-ci-stack-for-aws`](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws) module, a from-scratch Terraform port of the CloudFormation Elastic CI Stack at 33 AWS resources across 14 `.tf` files, replacing CFN custom resources with `aws_lambda_invocation` and extracting repeated expressions into reusable locals. Released to public preview in November 2025 and adopted in production by around 60 organisations, with ongoing ownership through docs, examples, custom IAM roles, Renovate and tagging.
 - Drove the [Buildkite CLI](https://github.com/buildkite/cli)'s migration from Cobra/Viper to Kong across every command group, including build, agent, job, cluster and artifacts. Stripped legacy TUI dependencies BubbleTea and Lipgloss in favour of plain ANSI output, trimming the binary by ~5 MB and yielding a more responsive CLI with cleaner output for scripts and AI agents to consume. Added cluster-queue commands, `bk job list/cancel`, agent pause/resume, and richer build filtering, keeping the Go SDK [`go-buildkite`](https://github.com/buildkite/go-buildkite) in lockstep with new service methods.
 - Hardened public actions and hooks by adding retry with exponential backoff and jitter to [`trigger-pipeline-action`](https://github.com/buildkite/trigger-pipeline-action) for 5xx/429/network errors, and switching on automatic secret redaction in [`elastic-ci-stack-s3-secrets-hooks`](https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks) so pipeline secrets are scrubbed before logs leave the agent.
 - Building OAuth alongside the existing PAT auth in the [Buildkite VS Code extension](https://github.com/buildkite/vscode-buildkite), a TypeScript refactor of auth, caching and logging into a dependency-injection pattern with token redaction across error paths.
+- Resolve 10+ customer escalations a month, unblocking developers at Buildkite's leading AI and tech customers across CI/CD pipelines, Kubernetes deployments via [`agent-stack-k8s`](https://github.com/buildkite/agent-stack-k8s), monitoring and platform incidents.
 - Opened ~100 pull requests across 18 Buildkite repositories with 92 merged, plus 135+ commits to the public documentation, all in under a year.
 
 ### Redcloud Technologies Ltd
 **DevOps Engineer** | March 2022 – June 2025
 
-- Broke down legacy monolithic systems into scalable, reproducible microservices defined as code.
+- Broke down 2 legacy monolithic systems into microservices defined as code, each deployed across 5 regions so high-traffic regions could scale independently of the rest.
 - Architected Kafka clusters on AWS MSK using Terraform, supporting pub/sub and producer/consumer patterns for a range of systems; configured SCRAM authentication through AWS Secrets Manager. Ran a Confluent Schema Registry clone on ECS for schema management and extended in-house GitOps tooling to automate topic creation and ACL management.
-- Designed and delivered a Magento infrastructure on a GitOps approach, with CI for PHP modules and CD for infrastructure and instance refreshes. Terraform formed the backbone, with application-specific deployments via cloud-init and Ansible fed from Git-based configuration. Wrote custom PHP modules to close gaps in Magento's non-cloud-native behaviour.
+- Designed and delivered a Magento infrastructure on a GitOps approach, with CI for PHP modules and CD for infrastructure refreshes. Terraform formed the backbone, with application-specific deployments via cloud-init and Ansible fed from Git-based configuration, plus custom PHP modules to close gaps in Magento's non-cloud-native behaviour.
 - Engineered a scalable, self-healing infrastructure monitoring system on AWS CloudWatch, New Relic and custom alerting scripts, reducing incident response times by 40%. Built automated remediation workflows that detect and resolve common issues without human intervention.
-- Designed and managed transit gateways across 25 AWS accounts and 85+ VPCs in Terraform to enable secure cross-account and cross-VPC communication. Configured NAT gateways and central VPC routing to optimise traffic flow while enforcing least-privilege access.
-- Rolled out a company-wide in-house VPN solution that uses RBAC over the transit gateway fabric to control access across systems and networks.
-- Built a Terraform-managed DNS and SSL certificate solution, with Python pipeline tasks that iterate over each domain and certificate to alert on impending renewals.
+- Designed and managed transit gateways across 25 AWS accounts and 85+ VPCs in Terraform to enable secure cross-account and cross-VPC communication. Configured NAT gateways and central VPC routing to optimise traffic flow while enforcing least-privilege access, and rolled out a company-wide in-house VPN on top of that fabric using RBAC for identity-scoped access across systems and networks.
+- Built a Terraform-managed DNS and SSL certificate solution covering 40 domains, around 150 hosted zones across sub-domains and around 50 SSL certificates, with Python pipeline tasks that iterate over each to alert on impending renewals.
 - Co-built an in-house automated backup solution for a busy on-premises SSMS database cluster, minimising resource overhead, with automated restoration to limit data loss under disaster. Extended the same approach to Aurora databases in RDS using a mix of snapshots and DMS for a maximum 5-minute RPO with data integrity preserved.
-- Refined CI/CD pipelines on Jenkins, CodeDeploy and Concourse to improve deployment efficiency. Integrated Terraform from GitHub for infrastructure automation, complemented by a custom in-house GitOps tool, for consistent and reliable deployments across environments.
+- Refined CI/CD pipelines on Jenkins, CodeDeploy and Concourse, integrating Terraform from GitHub for infrastructure automation alongside a custom in-house GitOps tool for consistent, reliable deployments across environments.
 - Conducted security audits across AWS and Azure environments, applying best practice to harden infrastructure, databases and application servers. Drove the internal technical readiness for ISO 27001 audits, remediating every point raised by compliance and passing with no major or minor findings.
+- Mentored DevOps Engineers across the team, sharing our GitOps approach and Kafka stack and preparing them to lead new projects of their own.
 
 ### Focus IT Limited
 **MSP Engineer** | May 2021 – March 2022
@@ -47,13 +47,12 @@ DevOps Engineer and Platform Engineer with 4+ years building cloud platforms as 
 ### OBG Pharmaceuticals Ltd
 **System Administrator** | March 2020 – May 2021
 
-- Provided IT support across a group of 7 companies, including server maintenance and networking.
-- Built PowerShell automation (via Adaxes) for AD and Exchange user-lifecycle tasks ahead of the Office 365 migration.
+- Built PowerShell automation via Adaxes for AD and Exchange user-lifecycle tasks across a group of 7 companies, ahead of the Office 365 migration.
 - Led migrations from on-premises AD to hybrid Azure AD, and on-premises Exchange + Skype to Office 365 + Teams.
 
 ## Skills
 
-- **Cloud & IaC:** AWS, Azure, Terraform, Ansible, CloudFormation
+- **Cloud & IaC:** AWS (VPC, IAM, Lambda, ECS, MSK, RDS, DMS, Transit Gateway, NAT Gateway, Secrets Manager, CloudWatch), Azure, Terraform, Ansible, CloudFormation
 - **Containers & orchestration:** Docker, Kubernetes, ECS, Lambda, GitOps
 - **CI/CD:** Buildkite, Jenkins, GitHub Actions, Concourse, CodeDeploy
 - **Data, messaging & observability:** SQL, MySQL, Redis, Elasticsearch, Apache Kafka (MSK), AWS CloudWatch, New Relic
