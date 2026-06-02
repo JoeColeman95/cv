@@ -55,4 +55,4 @@ jobs:
         run: |
           aws cloudfront create-invalidation \
             --distribution-id ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }} \
-            --paths "/" "/index.html" "/cv.html" "/github.html" "/cv.pdf"
+            --paths "/" "/index.html" "/cv.html" "/cv-sheet.html" "/github.html" "/cv.pdf"
